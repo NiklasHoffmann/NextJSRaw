@@ -5,27 +5,31 @@ Ein vollständiges, produktionsreifes Next.js Starter-Template mit TypeScript, T
 ## ✨ Features
 
 ### Core Stack
-- ⚡ **Next.js 15** - Neueste Version mit App Router
+
+- ⚡ **Next.js 16** - Neueste Version mit App Router & Performance-Optimierungen
 - ⚛️ **React 19** - Modernste React-Version
-- 📘 **TypeScript** - Vollständige Type-Safety
+- 📘 **TypeScript** - Vollständige Type-Safety im Strict Mode
 - 🎨 **Tailwind CSS** - Utility-First CSS Framework
 - 🗄️ **MongoDB** - NoSQL Datenbank mit Mongoose ODM
 
 ### Developer Experience
+
 - 🌍 **i18n** - Mehrsprachigkeit mit next-intl (Deutsch/Englisch)
-- 🌓 **Theme Toggle** - Dark/Light Mode mit next-themes
-- ✅ **Validation** - Zod für Runtime-Validation
-- 🎯 **ESLint + Prettier** - Code Quality & Formatting
-- 🐺 **Husky + lint-staged** - Git Hooks für Pre-Commit Checks
-- 📝 **Winston Logger** - Strukturiertes Logging
+- 🌓 **Theme Toggle** - Dark/Light Mode mit next-themes (System-Sync)
+- ✅ **Validation** - Zod für Runtime-Validation & Env Variables
+- 🎯 **ESLint + Prettier** - Code Quality & Auto-Formatting
+- 🐺 **Husky** - Git Hooks für Pre-Commit & Pre-Push Checks
+- 📝 **Winston Logger** - Strukturiertes Logging mit Rotation
 
 ### Production Features
+
 - 🚦 **Error Handling** - Error Boundaries & Custom Error Pages
-- ⏳ **Loading States** - Suspense & Loading Components
-- 🔒 **Rate Limiting** - API Rate Limiting
-- 📊 **API Response Wrapper** - Konsistente API Responses
-- 🤖 **SEO** - Sitemap & Robots.txt
+- ⏳ **Loading States** - Suspense Fallbacks & Loading Components
+- 🔒 **Rate Limiting** - In-Memory API Rate Limiting
+- 📊 **API Response Wrapper** - Konsistente Success/Error Responses
+- 🤖 **SEO** - Dynamic Sitemap & Robots.txt
 - 🔍 **TypeScript Strict Mode** - Maximale Type-Safety
+- 🎨 **VS Code Integration** - Settings & Extensions empfohlen
 
 ## 📁 Projektstruktur
 
@@ -74,23 +78,27 @@ NextJSRaw/
 ## 🚀 Quick Start
 
 ### Voraussetzungen
-- Node.js 18+ 
+
+- Node.js 18+
 - npm/pnpm/yarn
 - MongoDB (lokal oder Atlas)
 
 ### Installation
 
 1. **Dependencies installieren**
+
 ```bash
 npm install
 ```
 
 2. **Environment Variables einrichten**
+
 ```bash
 cp .env.example .env.local
 ```
 
 Bearbeite `.env.local` und füge deine MongoDB URI hinzu:
+
 ```env
 MONGODB_URI=mongodb://localhost:27017/nextjs-starter
 # oder MongoDB Atlas
@@ -98,6 +106,7 @@ MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/dbname
 ```
 
 3. **Development Server starten**
+
 ```bash
 npm run dev
 ```
@@ -120,16 +129,19 @@ npm run type-check   # TypeScript Type-Check
 ## 🌍 Internationalisierung (i18n)
 
 Das Projekt unterstützt Deutsch und Englisch:
+
 - `/` oder `/de` - Deutsche Version
 - `/en` - Englische Version
 
 Übersetzungen bearbeiten in:
+
 - `messages/de.json`
 - `messages/en.json`
 
 ## 🎨 Theming
 
 Dark/Light Mode Toggle ist bereits integriert:
+
 - Automatische System-Preference Detection
 - Manuelle Umschaltung über ThemeToggle Component
 - Persistierung der User-Präferenz
@@ -137,13 +149,17 @@ Dark/Light Mode Toggle ist bereits integriert:
 ## 🗄️ Database
 
 ### MongoDB Connection
+
 Die MongoDB-Verbindung wird automatisch im Hintergrund verwaltet:
+
 - Connection Pooling
 - Automatic Reconnection
 - Cached Connections in Development
 
 ### Models
+
 Beispiel User Model unter `src/models/User.ts`:
+
 ```typescript
 import User from '@/models/User';
 
@@ -156,33 +172,57 @@ const user = await User.create({
 ## 🔒 API Routes
 
 ### Health Check
+
 ```bash
 GET /api/health
 ```
+
 Überprüft die System-Gesundheit und Datenbankverbindung.
 
 ### Test Endpoint
+
 ```bash
 GET /api/test
 POST /api/test
 ```
+
 Test-Endpoint mit Rate Limiting.
 
 ### Rate Limiting
+
 Alle API Routes haben automatisches Rate Limiting:
+
 - Default: 100 Requests pro Minute
 - Anpassbar in `.env.local`
 
 ## ✅ Code Quality
 
+## 🆕 Was ist neu? (v2.0)
+
+### Hinzugefügt
+- ✅ **Complete User CRUD API** - Voll funktionsfähige User API mit Validation
+- 🐳 **Docker Support** - Dockerfile & docker-compose.yml für Container Deployment
+- 🔄 **GitHub Actions CI/CD** - Automatische Lint, TypeCheck & Build Pipeline
+- 📦 **File Utils** - Helper für File Uploads, Validation & Processing
+- 🎯 **Constants** - Zentrale Konfiguration für Auth, API, Pagination
+- 🔧 **Theme Fix** - Dark Mode funktioniert jetzt auf gesamter Seite
+- ⚡ **Next.js 16** - Upgrade auf neueste Version mit Security Fixes
+
+## ✅ Code Quality
+
 ### Pre-Commit Hooks
-- ESLint Auto-Fix
-- Prettier Formatting
-- Staging nur formatierter Code
+- Prettier Auto-Formatting
+- TypeScript Type-Check
 
 ### Pre-Push Hooks
 - TypeScript Type-Check
 - Verhindert Pushen bei Type-Errors
+
+### GitHub Actions
+- ESLint & Prettier Check
+- TypeScript Validation
+- Build Test
+- Automatisch bei Push & Pull Requests
 
 ## 🚢 Deployment
 
@@ -194,10 +234,11 @@ Alle API Routes haben automatisches Rate Limiting:
 
 ### Docker
 ```bash
-# Build
-docker build -t nextjs-starter .
+# Mit Docker Compose (inkl. MongoDB)
+docker-compose up -d
 
-# Run
+# Oder manuell
+docker build -t nextjs-starter .
 docker run -p 3000:3000 nextjs-starter
 ```
 
@@ -211,12 +252,35 @@ npm run start
 
 Erforderliche Environment Variables:
 ```env
-MONGODB_URI=                    # MongoDB Connection String
-NODE_ENV=development            # development | production | test
-NEXT_PUBLIC_APP_URL=           # App URL
-LOG_LEVEL=info                 # Log Level
-API_RATE_LIMIT=100             # Rate Limit
-API_RATE_LIMIT_WINDOW=60000    # Rate Limit Window (ms)
+MONGODB_URI=mongodb://localhost:27017/nextjs-starter
+NODE_ENV=development
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+LOG_LEVEL=info
+API_RATE_LIMIT=100
+API_RATE_LIMIT_WINDOW=60000
+```
+
+## 🔌 API Endpoints
+
+### Health Check
+```bash
+GET /api/health
+# Response: { status: 'healthy', database: 'connected' }
+```
+
+### Users API
+```bash
+GET    /api/users          # List all users
+POST   /api/users          # Create user
+GET    /api/users/[id]     # Get user by ID
+PATCH  /api/users/[id]     # Update user
+DELETE /api/users/[id]     # Soft delete user
+```
+
+### Test Endpoint
+```bash
+GET  /api/test             # Test with rate limiting
+POST /api/test             # Echo request body
 ```
 
 ## 🛠️ VS Code Integration
@@ -226,6 +290,35 @@ Empfohlene Extensions werden automatisch vorgeschlagen:
 - Prettier
 - Tailwind CSS IntelliSense
 - MongoDB for VS Code
+- TypeScript Next.js
+
+## 🎯 Was fehlt noch?
+
+Für deinen individuellen Use Case könntest du noch ergänzen:
+
+### Authentication
+- [ ] NextAuth.js Integration
+- [ ] JWT Token Management
+- [ ] Protected Routes Middleware
+- [ ] Session Management
+
+### Testing
+- [ ] Jest Unit Tests
+- [ ] Playwright E2E Tests
+- [ ] API Integration Tests
+
+### Features
+- [ ] Email Service (Resend/Nodemailer)
+- [ ] File Upload zu Cloud (S3/Cloudinary)
+- [ ] Webhook Handler
+- [ ] Cron Jobs
+- [ ] Redis Caching
+
+### DevOps
+- [ ] Monitoring (Sentry)
+- [ ] Analytics
+- [ ] Performance Monitoring
+- [ ] Error Tracking
 
 ## 📚 Weitere Ressourcen
 
@@ -240,11 +333,13 @@ Contributions sind willkommen! Bitte erstelle einen Pull Request.
 
 ## 📄 Lizenz
 
-MIT License - siehe LICENSE Datei für Details.
+MIT License
 
 ## 👨‍💻 Author
 
-Erstellt mit ❤️ als Production-Ready Starter Template
+Erstellt mit ❤️ als Production-Ready Starter Template für Next.js 16
+
+**Repository:** https://github.com/NiklasHoffmann/NextJSRaw
 
 ---
 
