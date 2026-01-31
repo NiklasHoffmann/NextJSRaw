@@ -11,37 +11,38 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "type-check": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "next": "^15.1.0",
+    "clsx": "^2.1.1",
+    "mongoose": "^8.9.3",
+    "next": "^16.1.6",
+    "next-intl": "^4.8.1",
+    "next-themes": "^0.4.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next-intl": "^3.26.0",
-    "next-themes": "^0.4.4",
-    "mongoose": "^8.9.3",
-    "zod": "^3.24.1",
     "react-hot-toast": "^2.4.1",
+    "tailwind-merge": "^2.6.0",
     "winston": "^3.17.0",
-    "clsx": "^2.1.1",
-    "tailwind-merge": "^2.6.0"
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",
     "@types/react": "^19.0.9",
     "@types/react-dom": "^19.0.3",
-    "typescript": "^5.7.3",
-    "tailwindcss": "^3.4.17",
-    "postcss": "^8.4.49",
+    "@typescript-eslint/eslint-plugin": "^8.20.0",
+    "@typescript-eslint/parser": "^8.20.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.18.0",
-    "eslint-config-next": "^15.1.0",
-    "prettier": "^3.4.2",
-    "prettier-plugin-tailwindcss": "^0.6.10",
+    "eslint-config-next": "^16.1.6",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.11",
-    "@typescript-eslint/eslint-plugin": "^8.20.0",
-    "@typescript-eslint/parser": "^8.20.0"
+    "postcss": "^8.4.49",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.10",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
