@@ -5,7 +5,7 @@ import { rateLimit } from '@/lib/rate-limit';
 export async function GET(request: NextRequest) {
   try {
     // Rate limiting
-    const ip = request.ip ?? 'anonymous';
+    const ip = request.headers.get('x-forwarded-for') ?? 'anonymous';
     const rateLimitResult = rateLimit(ip);
 
     if (!rateLimitResult.success) {
