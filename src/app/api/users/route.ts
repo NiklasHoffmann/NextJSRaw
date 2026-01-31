@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { successResponse, errorResponse, handleApiError } from '@/lib/api-response';
+import {
+  successResponse,
+  errorResponse,
+  handleApiError,
+} from '@/lib/api-response';
 import { rateLimit } from '@/lib/rate-limit';
 import connectToDatabase from '@/lib/mongodb';
 import User from '@/models/User';

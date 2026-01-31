@@ -2,19 +2,17 @@
  * Validates if a file is an allowed image type
  */
 export function isValidImageType(mimeType: string): boolean {
-  const allowedTypes = [
-    'image/jpeg',
-    'image/png',
-    'image/webp',
-    'image/gif',
-  ];
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
   return allowedTypes.includes(mimeType);
 }
 
 /**
  * Validates file size
  */
-export function isValidFileSize(size: number, maxSize: number = 5242880): boolean {
+export function isValidFileSize(
+  size: number,
+  maxSize: number = 5242880
+): boolean {
   return size <= maxSize;
 }
 
@@ -28,7 +26,7 @@ export function formatFileSize(bytes: number): string {
   const sizes = ['Bytes', 'KB', 'MB', 'GB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-  return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+  return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
 }
 
 /**

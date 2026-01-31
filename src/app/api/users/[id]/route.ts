@@ -1,5 +1,9 @@
 import { NextRequest } from 'next/server';
-import { successResponse, errorResponse, handleApiError } from '@/lib/api-response';
+import {
+  successResponse,
+  errorResponse,
+  handleApiError,
+} from '@/lib/api-response';
 import connectToDatabase from '@/lib/mongodb';
 import User from '@/models/User';
 import { updateUserSchema } from '@/schemas/user.schema';
