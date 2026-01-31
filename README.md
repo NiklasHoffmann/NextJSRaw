@@ -36,6 +36,7 @@ Ein vollständiges, produktionsreifes Next.js Starter-Template mit TypeScript, T
 ## Was ist neu? (v2.1 - Final)
 
 ### Theme System
+
 - **Zero-Flicker Loading** - Blocking Script verhindert Theme-Flash
 - **Smooth Transitions** - 200ms sanfte Übergänge für alle Elemente
 - **Backdrop Filter Support** - Blur-Effekte animieren mit
@@ -43,6 +44,7 @@ Ein vollständiges, produktionsreifes Next.js Starter-Template mit TypeScript, T
 - **System Preference Sync** - Auto-Erkennung & localStorage Persistierung
 
 ### API & Backend
+
 - **Complete User CRUD API** - `/api/users` mit Validation
 - **Health Check Endpoint** - `/api/health` für Monitoring
 - **Rate Limiting** - Schutz vor API Abuse
@@ -50,6 +52,7 @@ Ein vollständiges, produktionsreifes Next.js Starter-Template mit TypeScript, T
 - **Constants Library** - Zentrale App-Konfiguration
 
 ### DevOps
+
 - **Docker Support** - Multi-stage Build für Production
 - **GitHub Actions** - Automatische CI/CD Pipeline
 - **Logging** - Winston mit File Rotation
@@ -110,6 +113,7 @@ NextJSRaw/
 ## Quick Start
 
 ### Voraussetzungen
+
 - Node.js 20+
 - npm/pnpm/yarn
 - MongoDB (lokal oder Atlas)
@@ -117,22 +121,26 @@ NextJSRaw/
 ### Installation
 
 1. **Repository klonen**
+
 ```bash
 git clone https://github.com/NiklasHoffmann/NextJSRaw.git
 cd NextJSRaw
 ```
 
 2. **Dependencies installieren**
+
 ```bash
 npm install
 ```
 
 3. **Environment Variables einrichten**
+
 ```bash
 cp .env.example .env.local
 ```
 
 Bearbeite `.env.local`:
+
 ```env
 MONGODB_URI=mongodb://localhost:27017/nextjs-starter
 NEXT_PUBLIC_APP_URL=http://localhost:3000
@@ -142,6 +150,7 @@ API_RATE_LIMIT_WINDOW=60000
 ```
 
 4. **Development Server starten**
+
 ```bash
 npm run dev
 ```
@@ -164,16 +173,19 @@ npm run type-check   # TypeScript Type-Check
 ## Internationalisierung (i18n)
 
 Das Projekt unterstützt Deutsch und Englisch:
+
 - `/` oder `/de` - Deutsche Version
 - `/en` - Englische Version
 
 Übersetzungen bearbeiten in:
+
 - `messages/de.json`
 - `messages/en.json`
 
 ## Theme System
 
 ### Features
+
 - **Instant Load** - Blocking Script lädt Theme VOR React Hydration
 - **Zero Flicker** - Kein Flash of Unstyled Content (FOUC)
 - **Smooth Transitions** - 200ms sanfte Farbübergänge
@@ -181,6 +193,7 @@ Das Projekt unterstützt Deutsch und Englisch:
 - **System Sync** - Automatische Erkennung der System-Präferenz
 
 ### Technische Details
+
 ```typescript
 // Blocking Script in layout.tsx lädt Theme vor React
 localStorage.getItem('nextjs-theme')
@@ -192,13 +205,17 @@ localStorage.getItem('nextjs-theme')
 ## Database
 
 ### MongoDB Connection
+
 Die MongoDB-Verbindung wird automatisch im Hintergrund verwaltet:
+
 - Connection Pooling
 - Automatic Reconnection
 - Cached Connections in Development
 
 ### Models
+
 Beispiel User Model:
+
 ```typescript
 import User from '@/models/User';
 
@@ -211,12 +228,14 @@ const user = await User.create({
 ## API Endpoints
 
 ### Health Check
+
 ```bash
 GET /api/health
 # Response: { status: 'healthy', database: 'connected' }
 ```
 
 ### Users API
+
 ```bash
 GET    /api/users          # List all active users
 POST   /api/users          # Create new user
@@ -226,6 +245,7 @@ DELETE /api/users/[id]     # Soft delete user
 ```
 
 **Beispiel Request:**
+
 ```bash
 # Create User
 curl -X POST http://localhost:3000/api/users \
@@ -247,6 +267,7 @@ curl -X POST http://localhost:3000/api/users \
 ```
 
 ### Test Endpoint
+
 ```bash
 GET  /api/test             # Test mit Rate Limiting
 POST /api/test             # Echo request body
@@ -255,14 +276,17 @@ POST /api/test             # Echo request body
 ## Code Quality
 
 ### Pre-Commit Hooks
+
 - Prettier Auto-Formatting
 - TypeScript Type-Check
 
 ### Pre-Push Hooks
+
 - TypeScript Type-Check
 - Verhindert Pushen bei Type-Errors
 
 ### GitHub Actions
+
 - ESLint & Prettier Check
 - TypeScript Validation
 - Build Test
@@ -271,12 +295,14 @@ POST /api/test             # Echo request body
 ## Deployment
 
 ### Vercel (Empfohlen)
+
 1. Push zu GitHub
 2. Import in Vercel
 3. Environment Variables setzen
 4. Deploy
 
 ### Docker
+
 ```bash
 # Mit Docker Compose (inkl. MongoDB)
 docker-compose up -d
@@ -290,6 +316,7 @@ docker run -p 3000:3000 \
 ```
 
 ### Manual
+
 ```bash
 npm run build
 npm run start
@@ -298,6 +325,7 @@ npm run start
 ## Environment Variables
 
 Erforderliche Environment Variables:
+
 ```env
 MONGODB_URI=mongodb://localhost:27017/nextjs-starter
 NODE_ENV=development
@@ -310,6 +338,7 @@ API_RATE_LIMIT_WINDOW=60000
 ## VS Code Integration
 
 Empfohlene Extensions werden automatisch vorgeschlagen:
+
 - ESLint
 - Prettier
 - Tailwind CSS IntelliSense
@@ -321,17 +350,20 @@ Empfohlene Extensions werden automatisch vorgeschlagen:
 Für spezialisierte Use Cases könntest du ergänzen:
 
 ### Authentication
+
 - NextAuth.js Integration
 - JWT Token Management
 - Protected Routes Middleware
 - Session Management
 
 ### Testing
+
 - Jest Unit Tests
 - Playwright E2E Tests
 - API Integration Tests
 
 ### Features
+
 - Email Service (Resend/Nodemailer)
 - File Upload zu Cloud (S3/Cloudinary)
 - Webhook Handler
@@ -339,6 +371,7 @@ Für spezialisierte Use Cases könntest du ergänzen:
 - Redis Caching
 
 ### DevOps
+
 - Monitoring (Sentry)
 - Analytics (Plausible/Umami)
 - Performance Monitoring
