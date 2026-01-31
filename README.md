@@ -1,4 +1,4 @@
-# Next.js Production-Ready Starter v2.1
+# Next.js Production-Ready Starter v3.0
 
 Ein vollständiges, produktionsreifes Next.js Starter-Template mit TypeScript, Tailwind CSS, MongoDB, i18n und vielen weiteren Features.
 
@@ -33,7 +33,64 @@ Ein vollständiges, produktionsreifes Next.js Starter-Template mit TypeScript, T
 - **Docker Ready** - Dockerfile & docker-compose.yml
 - **CI/CD Pipeline** - GitHub Actions Integration
 
-## Was ist neu? (v2.1 - Final)
+### NEW: Advanced UI Components & Hooks
+
+- **Form System** - React Hook Form + Zod Integration
+- **Data Fetching** - TanStack Query mit Custom Hooks
+- **Modal/Dialog System** - Radix UI Components
+- **Table & Pagination** - Reusable Table mit Sorting
+- **Search & Filter** - Debounced Search + MongoDB Filter Builder
+- **Notifications** - useNotification Hook mit Toast
+- **Date/Number Formatting** - i18n-aware Utilities
+- **Common Validations** - 20+ Zod Schemas
+- **Auth Structure** - Context, HOC, Permissions (ready to implement)
+
+## Was ist neu? (v3.0 - Major Update)
+
+### Form System
+
+- **React Hook Form** - Performance-optimiertes Form Handling
+- **Zod Integration** - Type-safe Validation
+- **UI Components** - Input, Textarea, Select, Checkbox mit Error Display
+- **useZodForm Hook** - Simplified Form Setup
+
+### Data Fetching Layer
+
+- **TanStack Query** - Caching, Background Updates, Optimistic UI
+- **Custom Hooks** - useUsers, useUser, useCreateUser, useUpdateUser, useDeleteUser
+- **Query Keys** - Strukturierte Key-Management
+- **Auto-Invalidation** - Automatische Cache Updates
+
+### UI Component Library
+
+- **Modal/Dialog** - Radix UI mit useModal & useConfirm Hooks
+- **Table** - Flexible, typsichere Table Component
+- **Pagination** - Component + usePagination Hook
+- **SearchInput** - Mit Clear Button & Loading State
+- **Form Controls** - Styled, accessible, mit Error Handling
+
+### Utilities & Helpers
+
+- **useDebounce** - Debounced Values für Search
+- **useNotification** - Success/Error/Warning/Info Toasts
+- **Date Formatting** - formatDate, formatRelativeTime, formatRelativeDate
+- **Number Formatting** - Currency, Percent, FileSize, Compact Numbers
+- **Query Filter Builder** - Type-safe MongoDB Query Builder
+
+### Validation Schemas
+
+- Email, Password, Phone, URL, Slug, Username
+- File Size & Type Validation
+- Date Range, IP Address, Credit Card
+- JSON, Hex Color, Postal Code
+- 20+ wiederverwendbare Schemas
+
+### Auth Structure (Ready to Implement)
+
+- **AuthContext** - User State Management
+- **withAuth HOC** - Protected Routes
+- **Permission System** - Role-based Access Control
+- **usePermissions Hook** - Check User Permissions
 
 ### Theme System
 
@@ -78,9 +135,37 @@ NextJSRaw/
 │   │   ├── sitemap.ts             # Dynamic Sitemap
 │   │   └── robots.ts              # Robots.txt
 │   ├── components/
-│   │   ├── providers/             # React Providers (Theme, Intl)
+│   │   ├── hoc/                   # Higher-Order Components
+│   │   │   └── withAuth.tsx       # Protected Route HOC
+│   │   ├── providers/             # React Providers
+│   │   │   ├── ThemeProvider.tsx  # Theme Context
+│   │   │   └── ReactQueryProvider.tsx # TanStack Query
 │   │   ├── ui/                    # UI Components
+│   │   │   ├── Form/              # Form Components
+│   │   │   │   ├── Input.tsx      # Input Field
+│   │   │   │   ├── Textarea.tsx   # Textarea Field
+│   │   │   │   ├── Select.tsx     # Select Dropdown
+│   │   │   │   ├── Checkbox.tsx   # Checkbox Field
+│   │   │   │   └── Form.tsx       # Form Wrapper
+│   │   │   ├── Modal.tsx          # Modal Dialog
+│   │   │   ├── ConfirmDialog.tsx  # Confirmation Dialog
+│   │   │   ├── Table.tsx          # Data Table
+│   │   │   ├── Pagination.tsx     # Pagination Component
+│   │   │   ├── SearchInput.tsx    # Search Input with Clear
+│   │   │   ├── ThemeToggle.tsx    # Theme Switcher
+│   │   │   └── LoadingSpinner.tsx # Loading Indicator
 │   │   └── layouts/               # Layout Components
+│   ├── contexts/                  # React Contexts
+│   │   └── AuthContext.tsx        # Auth Context (ready to implement)
+│   ├── hooks/                     # Custom Hooks
+│   │   ├── useZodForm.ts          # Form Hook with Zod
+│   │   ├── useUsers.ts            # User CRUD Hooks (TanStack Query)
+│   │   ├── useModal.ts            # Modal State Hook
+│   │   ├── useConfirm.ts          # Confirmation Dialog Hook
+│   │   ├── useNotification.ts     # Toast Notification Hook
+│   │   ├── useDebounce.ts         # Debounce Hook
+│   │   ├── usePagination.ts       # Pagination Hook
+│   │   └── usePermissions.ts      # Permission Check Hook
 │   ├── lib/
 │   │   ├── env.ts                 # Env Validation (Zod)
 │   │   ├── mongodb.ts             # Database Connection
@@ -89,10 +174,15 @@ NextJSRaw/
 │   │   ├── api-response.ts        # API Helpers
 │   │   ├── rate-limit.ts          # Rate Limiter
 │   │   ├── constants.ts           # App Constants
-│   │   └── file-utils.ts          # File Processing
+│   │   ├── file-utils.ts          # File Processing
+│   │   ├── format.ts              # Date/Number Formatting
+│   │   ├── query-filter.ts        # MongoDB Filter Builder
+│   │   └── permissions.ts         # Permission Utils
 │   ├── models/                    # Mongoose Models
 │   │   └── User.ts                # User Model
 │   ├── schemas/                   # Zod Validation Schemas
+│   │   ├── user.schema.ts         # User Schemas
+│   │   └── common.schema.ts       # Common Validation Schemas
 │   ├── types/                     # TypeScript Types
 │   ├── config/                    # App Configuration
 │   ├── i18n.ts                    # i18n Config

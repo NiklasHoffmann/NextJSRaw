@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
+import ReactQueryProvider from '@/components/providers/ReactQueryProvider';
 import { Toaster } from 'react-hot-toast';
 import { siteConfig } from '@/config/site';
 import '../globals.css';
@@ -102,17 +103,19 @@ export default async function LocaleLayout({
         />
       </head>
       <body suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          storageKey="nextjs-theme"
-        >
-          <NextIntlClientProvider messages={messages}>
-            {children}
-            <Toaster position="top-right" />
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <ReactQueryProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            storageKey="nextjs-theme"
+          >
+            <NextIntlClientProvider messages={messages}>
+              {children}
+              <Toaster position="top-right" />
+            </NextIntlClientProvider>
+          </ThemeProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );
