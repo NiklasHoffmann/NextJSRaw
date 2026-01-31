@@ -1,0 +1,27 @@
+{
+  "common": {
+    "appName": "Next.js Starter",
+    "welcome": "Welcome",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "notFound": "Page not found",
+    "backToHome": "Back to home"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "toggle": "Toggle theme"
+  },
+  "errors": {
+    "generic": "Something went wrong!",
+    "tryAgain": "Try again",
+    "pageNotFound": "This page does not exist",
+    "serverError": "Server error"
+  }
+}
