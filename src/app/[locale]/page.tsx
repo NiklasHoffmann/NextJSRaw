@@ -25,28 +25,36 @@ export default function HomePage() {
 
       <div className="mb-32 mt-12 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
         <div className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
-          <h2 className="mb-3 text-2xl font-semibold">{t('home.cards.nextTitle')}</h2>
+          <h2 className="mb-3 text-2xl font-semibold">
+            {t('home.cards.nextTitle')}
+          </h2>
           <p className="m-0 max-w-[30ch] text-sm opacity-50">
             {t('home.cards.nextDescription')}
           </p>
         </div>
 
         <div className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
-          <h2 className="mb-3 text-2xl font-semibold">{t('home.cards.tsTitle')}</h2>
+          <h2 className="mb-3 text-2xl font-semibold">
+            {t('home.cards.tsTitle')}
+          </h2>
           <p className="m-0 max-w-[30ch] text-sm opacity-50">
             {t('home.cards.tsDescription')}
           </p>
         </div>
 
         <div className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
-          <h2 className="mb-3 text-2xl font-semibold">{t('home.cards.dbTitle')}</h2>
+          <h2 className="mb-3 text-2xl font-semibold">
+            {t('home.cards.dbTitle')}
+          </h2>
           <p className="m-0 max-w-[30ch] text-sm opacity-50">
             {t('home.cards.dbDescription')}
           </p>
         </div>
 
         <div className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
-          <h2 className="mb-3 text-2xl font-semibold">{t('home.cards.i18nTitle')}</h2>
+          <h2 className="mb-3 text-2xl font-semibold">
+            {t('home.cards.i18nTitle')}
+          </h2>
           <p className="m-0 max-w-[30ch] text-sm opacity-50">
             {t('home.cards.i18nDescription')}
           </p>
