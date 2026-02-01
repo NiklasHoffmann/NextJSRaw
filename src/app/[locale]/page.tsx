@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { LanguageToggle } from '@/components/ui/LanguageToggle';
 
 export default function HomePage() {
   const t = useTranslations('common');
@@ -11,40 +12,43 @@ export default function HomePage() {
           {t('appName')}
         </div>
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <ThemeToggle />
+          <div className="flex gap-2">
+            <ThemeToggle />
+            <LanguageToggle />
+          </div>
         </div>
       </div>
 
       <div className="relative flex place-items-center">
-        <h1 className="text-center text-4xl font-bold">Willkommen 🚀</h1>
+        <h1 className="text-center text-4xl font-bold">{t('home.headline')}</h1>
       </div>
 
       <div className="mb-32 mt-12 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
         <div className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
-          <h2 className="mb-3 text-2xl font-semibold">Next.js 16</h2>
+          <h2 className="mb-3 text-2xl font-semibold">{t('home.cards.nextTitle')}</h2>
           <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Latest Next.js with App Router
+            {t('home.cards.nextDescription')}
           </p>
         </div>
 
         <div className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
-          <h2 className="mb-3 text-2xl font-semibold">TypeScript</h2>
+          <h2 className="mb-3 text-2xl font-semibold">{t('home.cards.tsTitle')}</h2>
           <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Fully typed codebase
+            {t('home.cards.tsDescription')}
           </p>
         </div>
 
         <div className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
-          <h2 className="mb-3 text-2xl font-semibold">MongoDB</h2>
+          <h2 className="mb-3 text-2xl font-semibold">{t('home.cards.dbTitle')}</h2>
           <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Database integration ready
+            {t('home.cards.dbDescription')}
           </p>
         </div>
 
         <div className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
-          <h2 className="mb-3 text-2xl font-semibold">i18n</h2>
+          <h2 className="mb-3 text-2xl font-semibold">{t('home.cards.i18nTitle')}</h2>
           <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Multi-language support
+            {t('home.cards.i18nDescription')}
           </p>
         </div>
       </div>
