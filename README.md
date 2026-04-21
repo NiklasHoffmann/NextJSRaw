@@ -1,503 +1,169 @@
-# Next.js Production-Ready Starter v3.0
+# NextJSRaw
 
-Ein vollständiges, produktionsreifes Next.js Starter-Template mit TypeScript, Tailwind CSS, MongoDB, i18n und vielen weiteren Features.
+NextJSRaw is a bilingual Next.js 16 reference application that combines a localized frontend shell with a small MongoDB-backed API surface. It is best read as a portfolio project or reusable application baseline rather than a finished product: the repository shows how routing, validation, theming, persistence, API conventions, and basic operational safeguards can live in one codebase without pretending to solve a larger domain than it actually does.
 
-## Features
+## What This Repository Demonstrates
 
-### Core Stack
+- App Router structure with locale-aware routing through `next-intl` for German and English
+- End-to-end server flow through typed environment validation, cached MongoDB connection management, Mongoose models, Zod request validation, and consistent API responses
+- A concrete CRUD example via the `User` model and `/api/users` endpoints, including soft delete behavior
+- Reusable client-side primitives for forms, dialogs, tables, pagination, notifications, and React Query data fetching
+- Basic operational concerns such as health checks, in-memory rate limiting, structured logging, Docker packaging, and CI verification
+- Honest boundaries: authentication and permission checks are scaffolded, but authentication itself is not implemented yet
 
-- **Next.js 16** - Neueste Version mit App Router & Performance-Optimierungen
-- **React 19** - Modernste React-Version
-- **TypeScript** - Vollständige Type-Safety im Strict Mode
-- **Tailwind CSS** - Utility-First CSS Framework
-- **MongoDB** - NoSQL Datenbank mit Mongoose ODM
+## Tech Stack
 
-### Developer Experience
+- Next.js 16, React 19, TypeScript 5
+- Tailwind CSS 3
+- `next-intl` for localization
+- MongoDB with Mongoose
+- Zod for runtime validation
+- TanStack Query, React Hook Form, `react-hot-toast`
+- Radix UI primitives for dialogs and selects
+- Winston for application logging
+- Docker and GitHub Actions for packaging and verification
 
-- **i18n** - Mehrsprachigkeit mit next-intl (Deutsch/Englisch)
-- **Theme Toggle** - Perfekter Dark/Light Mode ohne Flicker
-- **Validation** - Zod für Runtime-Validation & Env Variables
-- **ESLint + Prettier** - Code Quality & Auto-Formatting
-- **Husky** - Git Hooks für Pre-Commit & Pre-Push Checks
-- **Winston Logger** - Strukturiertes Logging mit Rotation
+## Architecture Overview
 
-### Production Features
+### App Shell
 
-- **Error Handling** - Error Boundaries & Custom Error Pages
-- **Loading States** - Suspense Fallbacks & Loading Components
-- **Rate Limiting** - In-Memory API Rate Limiting
-- **API Response Wrapper** - Konsistente Success/Error Responses
-- **SEO** - Dynamic Sitemap & Robots.txt
-- **TypeScript Strict Mode** - Maximale Type-Safety
-- **VS Code Integration** - Settings & Extensions empfohlen
-- **Docker Ready** - Dockerfile & docker-compose.yml
-- **CI/CD Pipeline** - GitHub Actions Integration
+- `src/app/[locale]` contains the localized page tree, metadata, providers, and theme bootstrapping logic
+- `src/middleware.ts` applies locale-aware routing for `/`, `/de`, and `/en`
+- `messages/de.json` and `messages/en.json` hold translation strings
 
-### NEW: Advanced UI Components & Hooks
+### API and Persistence
 
-- **Form System** - React Hook Form + Zod Integration
-- **Data Fetching** - TanStack Query mit Custom Hooks
-- **Modal/Dialog System** - Radix UI Components
-- **Table & Pagination** - Reusable Table mit Sorting
-- **Search & Filter** - Debounced Search + MongoDB Filter Builder
-- **Notifications** - useNotification Hook mit Toast
-- **Date/Number Formatting** - i18n-aware Utilities
-- **Common Validations** - 20+ Zod Schemas
-- **Auth Structure** - Context, HOC, Permissions (ready to implement)
+- `src/app/api/users` implements user CRUD handlers on top of Mongoose
+- `src/app/api/health` verifies that the application can reach MongoDB
+- `src/lib/mongodb.ts` caches the Mongoose connection for server-side reuse
+- `src/lib/api-response.ts` standardizes success and error payloads
+- `src/lib/rate-limit.ts` adds a simple in-memory limiter to selected endpoints
 
-## Was ist neu? (v3.0 - Major Update)
+### Reusable Client Modules
 
-### Form System
+- `src/hooks/useUsers.ts` wraps the user API with React Query
+- `src/components/ui/Form/*`, `Modal.tsx`, `ConfirmDialog.tsx`, `Table.tsx`, `Pagination.tsx`, and `SearchInput.tsx` provide reusable UI building blocks
+- [USAGE.md](USAGE.md) documents intended usage patterns for those modules
 
-- **React Hook Form** - Performance-optimiertes Form Handling
-- **Zod Integration** - Type-safe Validation
-- **UI Components** - Input, Textarea, Select, Checkbox mit Error Display
-- **useZodForm Hook** - Simplified Form Setup
+## Why This Project Is Interesting
 
-### Data Fetching Layer
+- It goes beyond a single landing page by combining public app concerns and backend request handling in one repository.
+- It includes the engineering details reviewers usually look for but starter templates often skip: environment validation, response normalization, soft delete semantics, health monitoring, logging, and container packaging.
+- It shows architectural restraint. Features that are not finished, especially authentication, are exposed as scaffolding instead of being overstated in the documentation.
 
-- **TanStack Query** - Caching, Background Updates, Optimistic UI
-- **Custom Hooks** - useUsers, useUser, useCreateUser, useUpdateUser, useDeleteUser
-- **Query Keys** - Strukturierte Key-Management
-- **Auto-Invalidation** - Automatische Cache Updates
+## Current Boundaries
 
-### UI Component Library
+- The visible page layer is intentionally small: a localized homepage plus loading, error, not-found, sitemap, and robots handling.
+- `AuthContext`, `withAuth`, and permission helpers define an access-control shape, but they are placeholders for a future auth integration.
+- Only the API routes backed by actual `route.ts` files are documented here. Empty directories under `src/app/api/checkout` and `src/app/api/download` are not active endpoints.
 
-- **Modal/Dialog** - Radix UI mit useModal & useConfirm Hooks
-- **Table** - Flexible, typsichere Table Component
-- **Pagination** - Component + usePagination Hook
-- **SearchInput** - Mit Clear Button & Loading State
-- **Form Controls** - Styled, accessible, mit Error Handling
+## Local Development
 
-### Utilities & Helpers
-
-- **useDebounce** - Debounced Values für Search
-- **useNotification** - Success/Error/Warning/Info Toasts
-- **Date Formatting** - formatDate, formatRelativeTime, formatRelativeDate
-- **Number Formatting** - Currency, Percent, FileSize, Compact Numbers
-- **Query Filter Builder** - Type-safe MongoDB Query Builder
-
-### Validation Schemas
-
-- Email, Password, Phone, URL, Slug, Username
-- File Size & Type Validation
-- Date Range, IP Address, Credit Card
-- JSON, Hex Color, Postal Code
-- 20+ wiederverwendbare Schemas
-
-### Auth Structure (Ready to Implement)
-
-- **AuthContext** - User State Management
-- **withAuth HOC** - Protected Routes
-- **Permission System** - Role-based Access Control
-- **usePermissions Hook** - Check User Permissions
-
-### Theme System
-
-- **Zero-Flicker Loading** - Blocking Script verhindert Theme-Flash
-- **Smooth Transitions** - 200ms sanfte Übergänge für alle Elemente
-- **Backdrop Filter Support** - Blur-Effekte animieren mit
-- **Loading State Prevention** - Keine Transitions beim ersten Load
-- **System Preference Sync** - Auto-Erkennung & localStorage Persistierung
-
-### API & Backend
-
-- **Complete User CRUD API** - `/api/users` mit Validation
-- **Health Check Endpoint** - `/api/health` für Monitoring
-- **Rate Limiting** - Schutz vor API Abuse
-- **File Upload Utils** - Validation & Processing Helpers
-- **Constants Library** - Zentrale App-Konfiguration
-
-### DevOps
-
-- **Docker Support** - Multi-stage Build für Production
-- **GitHub Actions** - Automatische CI/CD Pipeline
-- **Logging** - Winston mit File Rotation
-- **Environment Validation** - Zod-basierte Env Checks
-
-## Projektstruktur
-
-```
-NextJSRaw/
-├── src/
-│   ├── app/
-│   │   ├── [locale]/              # Internationalisierte Routes
-│   │   │   ├── layout.tsx         # Root Layout mit Theme Script
-│   │   │   ├── page.tsx           # Homepage
-│   │   │   ├── loading.tsx        # Loading UI
-│   │   │   ├── error.tsx          # Error Boundary
-│   │   │   └── not-found.tsx      # 404 Page
-│   │   ├── api/                   # API Routes
-│   │   │   ├── health/            # Health Check
-│   │   │   ├── test/              # Test Endpoint
-│   │   │   └── users/             # User CRUD API
-│   │   ├── global-error.tsx       # Global Error Handler
-│   │   ├── sitemap.ts             # Dynamic Sitemap
-│   │   └── robots.ts              # Robots.txt
-│   ├── components/
-│   │   ├── hoc/                   # Higher-Order Components
-│   │   │   └── withAuth.tsx       # Protected Route HOC
-│   │   ├── providers/             # React Providers
-│   │   │   ├── ThemeProvider.tsx  # Theme Context
-│   │   │   └── ReactQueryProvider.tsx # TanStack Query
-│   │   ├── ui/                    # UI Components
-│   │   │   ├── Form/              # Form Components
-│   │   │   │   ├── Input.tsx      # Input Field
-│   │   │   │   ├── Textarea.tsx   # Textarea Field
-│   │   │   │   ├── Select.tsx     # Select Dropdown
-│   │   │   │   ├── Checkbox.tsx   # Checkbox Field
-│   │   │   │   └── Form.tsx       # Form Wrapper
-│   │   │   ├── Modal.tsx          # Modal Dialog
-│   │   │   ├── ConfirmDialog.tsx  # Confirmation Dialog
-│   │   │   ├── Table.tsx          # Data Table
-│   │   │   ├── Pagination.tsx     # Pagination Component
-│   │   │   ├── SearchInput.tsx    # Search Input with Clear
-│   │   │   ├── ThemeToggle.tsx    # Theme Switcher
-│   │   │   └── LoadingSpinner.tsx # Loading Indicator
-│   │   └── layouts/               # Layout Components
-│   ├── contexts/                  # React Contexts
-│   │   └── AuthContext.tsx        # Auth Context (ready to implement)
-│   ├── hooks/                     # Custom Hooks
-│   │   ├── useZodForm.ts          # Form Hook with Zod
-│   │   ├── useUsers.ts            # User CRUD Hooks (TanStack Query)
-│   │   ├── useModal.ts            # Modal State Hook
-│   │   ├── useConfirm.ts          # Confirmation Dialog Hook
-│   │   ├── useNotification.ts     # Toast Notification Hook
-│   │   ├── useDebounce.ts         # Debounce Hook
-│   │   ├── usePagination.ts       # Pagination Hook
-│   │   └── usePermissions.ts      # Permission Check Hook
-│   ├── lib/
-│   │   ├── env.ts                 # Env Validation (Zod)
-│   │   ├── mongodb.ts             # Database Connection
-│   │   ├── logger.ts              # Winston Logger
-│   │   ├── utils.ts               # Utility Functions
-│   │   ├── api-response.ts        # API Helpers
-│   │   ├── rate-limit.ts          # Rate Limiter
-│   │   ├── constants.ts           # App Constants
-│   │   ├── file-utils.ts          # File Processing
-│   │   ├── format.ts              # Date/Number Formatting
-│   │   ├── query-filter.ts        # MongoDB Filter Builder
-│   │   └── permissions.ts         # Permission Utils
-│   ├── models/                    # Mongoose Models
-│   │   └── User.ts                # User Model
-│   ├── schemas/                   # Zod Validation Schemas
-│   │   ├── user.schema.ts         # User Schemas
-│   │   └── common.schema.ts       # Common Validation Schemas
-│   ├── types/                     # TypeScript Types
-│   ├── config/                    # App Configuration
-│   ├── i18n.ts                    # i18n Config
-│   ├── routing.ts                 # Routing Config
-│   └── middleware.ts              # Next.js Middleware
-├── messages/                      # i18n Translations
-│   ├── de.json
-│   └── en.json
-├── .github/workflows/             # GitHub Actions
-│   └── ci.yml                     # CI/CD Pipeline
-├── .vscode/                       # VS Code Settings
-├── .husky/                        # Git Hooks
-├── Dockerfile                     # Docker Configuration
-├── docker-compose.yml             # Docker Compose Setup
-└── public/                        # Static Assets
-```
-
-## Quick Start
-
-### Voraussetzungen
+### Requirements
 
 - Node.js 20+
-- npm/pnpm/yarn
-- MongoDB (lokal oder Atlas)
+- npm
+- A MongoDB instance, local or remote
 
-### Installation
-
-1. **Repository klonen**
-
-```bash
-git clone https://github.com/NiklasHoffmann/NextJSRaw.git
-cd NextJSRaw
-```
-
-2. **Dependencies installieren**
+### Start the app
 
 ```bash
 npm install
-```
-
-3. **Environment Variables einrichten**
-
-```bash
 cp .env.example .env.local
-```
-
-Bearbeite `.env.local`:
-
-```env
-MONGODB_URI=mongodb://localhost:27017/nextjs-starter
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-LOG_LEVEL=info
-API_RATE_LIMIT=100
-API_RATE_LIMIT_WINDOW=60000
-```
-
-4. **Development Server starten**
-
-```bash
 npm run dev
 ```
 
-Öffne [http://localhost:3000](http://localhost:3000)
+If you are working in PowerShell, create the local environment file with:
 
-## Verfügbare Scripts
+```powershell
+Copy-Item .env.example .env.local
+```
+
+The app runs at `http://localhost:3000` by default.
+
+### Optional: run with Docker Compose
 
 ```bash
-npm run dev          # Development Server starten
-npm run build        # Production Build erstellen
-npm run start        # Production Server starten
-npm run lint         # ESLint ausführen
-npm run lint:fix     # ESLint mit Auto-Fix
-npm run format       # Code formatieren mit Prettier
-npm run format:check # Prettier Check
-npm run type-check   # TypeScript Type-Check
+docker compose up --build
 ```
 
-## Internationalisierung (i18n)
-
-Das Projekt unterstützt Deutsch und Englisch:
-
-- `/` oder `/de` - Deutsche Version
-- `/en` - Englische Version
-
-Übersetzungen bearbeiten in:
-
-- `messages/de.json`
-- `messages/en.json`
-
-## Theme System
-
-### Features
-
-- **Instant Load** - Blocking Script lädt Theme VOR React Hydration
-- **Zero Flicker** - Kein Flash of Unstyled Content (FOUC)
-- **Smooth Transitions** - 200ms sanfte Farbübergänge
-- **Persistent** - Theme wird in localStorage gespeichert
-- **System Sync** - Automatische Erkennung der System-Präferenz
-
-### Technische Details
-
-```typescript
-// Blocking Script in layout.tsx lädt Theme vor React
-localStorage.getItem('nextjs-theme')
-→ Setzt 'dark' class auf <html>
-→ CSS Transitions erst nach Load aktiviert
-→ Kein Flicker, perfekte UX
-```
-
-## Database
-
-### MongoDB Connection
-
-Die MongoDB-Verbindung wird automatisch im Hintergrund verwaltet:
-
-- Connection Pooling
-- Automatic Reconnection
-- Cached Connections in Development
-
-### Models
-
-Beispiel User Model:
-
-```typescript
-import User from '@/models/User';
-
-const user = await User.create({
-  name: 'John Doe',
-  email: 'john@example.com',
-});
-```
-
-## API Endpoints
-
-### Health Check
-
-```bash
-GET /api/health
-# Response: { status: 'healthy', database: 'connected' }
-```
-
-### Users API
-
-```bash
-GET    /api/users          # List all active users
-POST   /api/users          # Create new user
-GET    /api/users/[id]     # Get user by ID
-PATCH  /api/users/[id]     # Update user
-DELETE /api/users/[id]     # Soft delete user
-```
-
-**Beispiel Request:**
-
-```bash
-# Create User
-curl -X POST http://localhost:3000/api/users \
-  -H "Content-Type: application/json" \
-  -d '{"name":"John Doe","email":"john@example.com"}'
-
-# Response
-{
-  "success": true,
-  "data": {
-    "id": "...",
-    "name": "John Doe",
-    "email": "john@example.com",
-    "role": "user",
-    "isActive": true
-  },
-  "message": "User created successfully"
-}
-```
-
-### Test Endpoint
-
-```bash
-GET  /api/test             # Test mit Rate Limiting
-POST /api/test             # Echo request body
-```
-
-## Code Quality
-
-### Pre-Commit Hooks
-
-- Prettier Auto-Formatting
-- TypeScript Type-Check
-
-### Pre-Push Hooks
-
-- TypeScript Type-Check
-- Verhindert Pushen bei Type-Errors
-
-### GitHub Actions
-
-- ESLint & Prettier Check
-- TypeScript Validation
-- Build Test
-- Automatisch bei Push & Pull Requests
-
-## Deployment
-
-### Vercel (Empfohlen)
-
-1. Push zu GitHub
-2. Import in Vercel
-3. Environment Variables setzen
-4. Deploy
-
-### Docker
-
-```bash
-# Mit Docker Compose (inkl. MongoDB)
-docker-compose up -d
-
-# Oder manuell
-docker build -t nextjs-starter .
-docker run -p 3000:3000 \
-  -e MONGODB_URI=your_uri \
-  -e NEXT_PUBLIC_APP_URL=your_url \
-  nextjs-starter
-```
-
-### Manual
-
-```bash
-npm run build
-npm run start
-```
+This uses the included `Dockerfile` and `docker-compose.yml` to start the Next.js app together with MongoDB.
 
 ## Environment Variables
 
-Erforderliche Environment Variables:
+Environment variables are parsed and validated in `src/lib/env.ts`.
 
-```env
-MONGODB_URI=mongodb://localhost:27017/nextjs-starter
-NODE_ENV=development
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-LOG_LEVEL=info
-API_RATE_LIMIT=100
-API_RATE_LIMIT_WINDOW=60000
-```
+### Required
 
-## VS Code Integration
+- `MONGODB_URI`: MongoDB connection string used by the API routes and health check
+- `NEXT_PUBLIC_APP_URL`: public base URL used for metadata, `robots.txt`, and `sitemap.xml`
 
-Empfohlene Extensions werden automatisch vorgeschlagen:
+### Optional with defaults
 
-- ESLint
-- Prettier
-- Tailwind CSS IntelliSense
-- MongoDB for VS Code
-- TypeScript Next.js
+- `NODE_ENV`: `development`, `production`, or `test`
+- `LOG_LEVEL`: Winston log level, defaults to `info`
+- `API_RATE_LIMIT`: request limit for the in-memory rate limiter, defaults to `100`
+- `API_RATE_LIMIT_WINDOW`: limiter window in milliseconds, defaults to `60000`
 
-## Was fehlt noch?
+The repository includes [.env.example](.env.example) with the expected shape.
 
-Für spezialisierte Use Cases könntest du ergänzen:
+## Representative Routes and Modules
 
-### Authentication
+### Routes
 
-- NextAuth.js Integration
-- JWT Token Management
-- Protected Routes Middleware
-- Session Management
+- `/`, `/de`, `/en`: localized homepage routed through `next-intl`
+- `/robots.txt`: generated by `src/app/robots.ts`
+- `/sitemap.xml`: generated by `src/app/sitemap.ts`
 
-### Testing
+### Modules
 
-- Jest Unit Tests
-- Playwright E2E Tests
-- API Integration Tests
+- `src/app/[locale]/layout.tsx`: shared metadata, theme initialization before hydration, app providers, and toaster setup
+- `src/lib/mongodb.ts`: cached Mongoose connection handling
+- `src/models/User.ts`: schema definition, indexes, and JSON transformation for user records
+- `src/hooks/useUsers.ts`: typed React Query wrappers for the user API
 
-### Features
+## Representative APIs
 
-- Email Service (Resend/Nodemailer)
-- File Upload zu Cloud (S3/Cloudinary)
-- Webhook Handler
-- Cron Jobs
-- Redis Caching
+- `GET /api/health`: attempts a MongoDB connection and returns service status information
+- `GET /api/test`: lightweight probe endpoint that returns a timestamp and current rate-limit state
+- `POST /api/test`: echoes a posted JSON payload back to the caller
+- `GET /api/users`: returns up to 50 active users, newest first
+- `POST /api/users`: validates and creates a user
+- `GET /api/users/:id`: fetches a single user by id
+- `PATCH /api/users/:id`: applies a partial update validated by Zod
+- `DELETE /api/users/:id`: performs a soft delete by setting `isActive` to `false`
 
-### DevOps
+## Scripts
 
-- Monitoring (Sentry)
-- Analytics (Plausible/Umami)
-- Performance Monitoring
-- Error Tracking
+- `npm run dev`: start the development server
+- `npm run build`: create a production build
+- `npm run start`: run the production server
+- `npm run lint`: run ESLint
+- `npm run lint:fix`: run ESLint with autofix
+- `npm run type-check`: run TypeScript without emitting files
+- `npm run format`: format the repository with Prettier
+- `npm run format:check`: verify formatting
+- `npm run prepare`: install Husky hooks
 
-## Weitere Ressourcen
+## Deployment and Verification
 
-- [Next.js Dokumentation](https://nextjs.org/docs)
-- [Tailwind CSS Dokumentation](https://tailwindcss.com/docs)
-- [MongoDB Dokumentation](https://docs.mongodb.com)
-- [next-intl Dokumentation](https://next-intl-docs.vercel.app)
-- [next-themes Dokumentation](https://github.com/pacocoursey/next-themes)
+- `next.config.ts` enables standalone output for container builds
+- The `Dockerfile` uses a multi-stage build and expects `MONGODB_URI` and `NEXT_PUBLIC_APP_URL` at build time
+- `docker-compose.yml` provides a local container setup for the app plus MongoDB
+- `.github/workflows/ci.yml` runs linting, type checking, formatting checks, and a production build on pushes and pull requests targeting `main` and `develop`
 
-## Contributing
+There are no cloud-provider-specific deployment manifests in this repository beyond those Docker and CI files.
 
-Contributions sind willkommen! Bitte erstelle einen Pull Request.
+## Code Quality
 
-## Lizenz
+- TypeScript is configured to fail builds on type errors
+- Environment variables are validated at startup with Zod
+- API handlers share common response and error helpers instead of returning ad hoc payloads
+- Husky and `lint-staged` provide local guardrails for formatting and linting
+- CI repeats the main static checks in GitHub Actions
 
-MIT License
+## Additional Documentation
 
-## Author
-
-Erstellt von **Niklas Hoffmann** als Production-Ready Starter Template für Next.js 16
-
-**Repository:** https://github.com/NiklasHoffmann/NextJSRaw
-
----
-
-## Features Highlights
-
-- Zero Security Vulnerabilities
-- 100% TypeScript Coverage
-- Perfect Dark Mode (No Flicker)
-- Production-Ready API
-- Docker Support
-- CI/CD Pipeline
-- Full i18n Support
-- SEO Optimized
+- [USAGE.md](USAGE.md): usage examples for form hooks, dialogs, tables, search, pagination, and React Query
+- `messages/*.json`: translation sources
+- `src/config/site.ts`: shared site metadata used across the app shell and SEO files
